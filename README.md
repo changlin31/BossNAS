@@ -18,10 +18,10 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
 
   |       Model       | MAdds | Steptime | Top-1 (%) | Top-5 (%) | Url           |
   | :---------------: | :---: | :------: | :-------: | :-------: | :-----:       |
-  | BossNet-T0 w/o SE | 3.4B  |  101ms   |   80.5    |   95.0    | coming soon   |
-  |    BossNet-T0     | 3.4B  |  115ms   |   80.8    |   95.2    | coming soon   |
+  | BossNet-T0 w/o SE | 3.4B  |  101ms   |   80.5    |   95.0    | [checkpoint](https://github.com/changlin31/BossNAS/releases/download/v0.1/BossNet-T0-nose-80_5.pth)   |
+  |    BossNet-T0     | 3.4B  |  115ms   |   80.8    |   95.2    | [checkpoint](https://github.com/changlin31/BossNAS/releases/download/v0.1/BossNet-T0-80_8.pth)   |
   |    BossNet-T0^    | 5.7B  |  147ms   |   81.6    |   95.6    | same as above |
-  |    BossNet-T1     | 7.9B  |  156ms   |   81.9    |   95.6    | coming soon   |
+  |    BossNet-T1     | 7.9B  |  156ms   |   81.9    |   95.6    | [checkpoint](https://github.com/changlin31/BossNAS/releases/download/v0.1/BossNet-T1-81_9.pth)   |
   |    BossNet-T1^    | 10.5B |  165ms   |   82.2    |   95.7    | same as above |
 
 - Here is a summary of architecture rating accuracy of our method:
