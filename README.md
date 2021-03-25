@@ -1,6 +1,6 @@
 # BossNAS
 
-This repository contains PyTorch evaluation code, retraining code and pretrained models of our paper: ***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***.
+This repository contains PyTorch evaluation code, retraining code and pretrained models of our paper: ***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***. [[pdf link](https://arxiv.org/pdf/2103.12424.pdf)]
 
 <img src=https://user-images.githubusercontent.com/61453811/112087629-45c29700-8bc9-11eb-8536-3485660bc7c2.png width=90%/>
 
@@ -107,6 +107,22 @@ Architecture of our BossNet-T0
     ```
 
 <img src=https://user-images.githubusercontent.com/61453811/112087637-48bd8780-8bc9-11eb-8697-ff535cc9634b.png width=20%/>
+
+## Citation
+```
+@article{li2021bossnas,
+  author = {Li, Changlin and
+            Tang, Tao and
+            Wang, Guangrun and
+            Peng, Jiefeng and
+            Wang, Bing and
+            Liang, Xiaodan and
+            Chang, Xiaojun},
+  title = {BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search},
+  journal = {arXiv:2103.12424},
+  year = 2021,
+}
+```
 
 ## TODO
 
