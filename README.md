@@ -2,15 +2,16 @@
 
 This repository contains PyTorch code and pretrained models of our paper: [***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***](https://arxiv.org/pdf/2103.12424.pdf).
 
-<div style="text-align: center;">
-<img src=https://user-images.githubusercontent.com/61453811/112087629-45c29700-8bc9-11eb-8536-3485660bc7c2.png width=90%/>
-
+<p align="center">
+<img src=https://user-images.githubusercontent.com/61453811/112087629-45c29700-8bc9-11eb-8536-3485660bc7c2.png width=95%/></p>
+<p align="center">
 Illustration of the Siamese supernets training with ensemble bootstrapping.
+</p>
 
-<img src=https://user-images.githubusercontent.com/61453811/112087643-4a874b00-8bc9-11eb-9440-757429034d81.png width=90%/>
-
+<p align="center"><img src=https://user-images.githubusercontent.com/61453811/112087643-4a874b00-8bc9-11eb-9440-757429034d81.png width=95%/></p>
+<p align="center">
 Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexible down-sampling positions.
-</div>
+</p>
 
 ## Our Results and Trained Models
 
@@ -70,32 +71,38 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
   
 - Download [NATS-Bench](https://github.com/D-X-Y/NATS-Bench) split version CIFAR datasets from [Google Drive](https://drive.google.com/drive/folders/1T3UIyZXUhMmIuJLOBMIYKAsJknAtrrO4). Put it under `/YOURDATAROOT/cifar/`
 
-- Create a soft link to your data root in the current directory:
-  ```shell
-  ln -s /YOURDATAROOT data
-  ```
-- Overall stucture of the folder:
-  ```
-  BossNAS
-  ├── ranking_mbconv
-  ├── ranking_nats
-  ├── retraining_hytra
-  ├── searching
-  ├── data
-  │   ├── imagenet
-  │   │   ├── meta
-  │   │   ├── train
-  │   │   |   ├── n01440764
-  │   │   |   ├── n01443537
-  │   │   |   ├── ...
-  │   │   ├── val
-  │   │   |   ├── n01440764
-  │   │   |   ├── n01443537
-  │   │   |   ├── ...
-  │   ├── cifar
-  │   │   ├── cifar-10-batches-py
-  │   │   ├── cifar-100-python
-  ```
+- Prepare BossNAS repository:
+    ```shell
+    git clone https://github.com/changlin31/BossNAS.git
+    cd BossNAS
+    ```
+
+  - Create a soft link to your data root:
+    ```shell
+    ln -s /YOURDATAROOT data
+    ```
+  - Overall stucture of the folder:
+    ```
+    BossNAS
+    ├── ranking_mbconv
+    ├── ranking_nats
+    ├── retraining_hytra
+    ├── searching
+    ├── data
+    │   ├── imagenet
+    │   │   ├── meta
+    │   │   ├── train
+    │   │   |   ├── n01440764
+    │   │   |   ├── n01443537
+    │   │   |   ├── ...
+    │   │   ├── val
+    │   │   |   ├── n01440764
+    │   │   |   ├── n01443537
+    │   │   |   ├── ...
+    │   ├── cifar
+    │   │   ├── cifar-10-batches-py
+    │   │   ├── cifar-100-python
+    ```
 
 ### 2. Retrain or Evaluate our BossNet-T models
 
@@ -106,7 +113,8 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
   Our retraining code of BossNet-T is based on [DeiT](https://github.com/facebookresearch/deit) repository.
 
 
-- You can evaluate our BossNet-T models with the following command:
+- Evaluate our BossNet-T models with the following command:
+  - Please download our checkpoint files from the result table, and change the `--resume` and `--input-size` accordingly. You can change the `--nproc_per_node` option to suit your GPU numbers
 
     ```shell
     python -m torch.distributed.launch --nproc_per_node=4 --use_env main.py --model bossnet_T0 --input-size 224 --batch-size 128 --data-path ../data/imagenet --num_workers 8 --eval --resume PATH/TO/BossNet-T0-80_8.pth
@@ -115,12 +123,10 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
     ```shell
     python -m torch.distributed.launch --nproc_per_node=4 --use_env main.py --model bossnet_T1 --input-size 224 --batch-size 128 --data-path ../data/imagenet --num_workers 8 --eval --resume PATH/TO/BossNet-T1-81_9.pth
     ```
-  Please download our checkpoint files from the result table. Please change the `--nproc_per_node` option to suit your GPU numbers, and change the `--data-path`, `--resume` and `--input-size` accordingly.
 
+- Retrain our BossNet-T models with the following command:
 
-- You can retrain our BossNet-T models with the following command:
-
-  Please change the `--nproc_per_node` and `--data-path` accordingly. Note that the learning rate will be automatically scaled according to the GPU numbers and batchsize. We recommend training with 128 batchsize and 8 GPUs. (takes about 2 days)
+  - You can change the `--nproc_per_node` to suit your GPU numbers. Please note that the learning rate will be automatically scaled according to the GPU numbers and batchsize. We recommend training with 128 batchsize and 8 GPUs. (takes about 2 days)
 
     ```shell
     python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --model bossnet_T0 --input-size 224 --batch-size 128 --data-path ../data/imagenet --num_workers 8
@@ -130,46 +136,45 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
     python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --model bossnet_T1 --input-size 224 --batch-size 128 --data-path ../data/imagenet --num_workers 8
     ```
 
-<div style="text-align: center;"><img src=https://user-images.githubusercontent.com/61453811/112087617-40fde300-8bc9-11eb-93ed-d043979d3e65.png width=60%/></div>
-
-<div style="text-align: center;">Architecture of our BossNet-T0</div>
+<p align="center"><img src=https://user-images.githubusercontent.com/61453811/112087617-40fde300-8bc9-11eb-93ed-d043979d3e65.png width=60%/></p>
+<p align="center">Architecture of our BossNet-T0</p>
 
 ### 3. Evaluate architecture rating accuracy of BossNAS
 
-- You can get the ranking correlations of BossNAS on MBConv search space with the following commands:
+- Get the ranking correlations of BossNAS on MBConv search space with the following commands:
 
     ```shell
     cd ranking_mbconv
     python get_model_score_mbconv.py
     ```
 
-<div style="text-align: center;"><img src=https://user-images.githubusercontent.com/61453811/112087625-43603d00-8bc9-11eb-8199-402998b9c7ef.png width=90%/></div>
+<p align="center"><img src=https://user-images.githubusercontent.com/61453811/112087625-43603d00-8bc9-11eb-8199-402998b9c7ef.png width=90%/></p>
 
-- You can get the ranking correlations of BossNAS on NATS-Bench Ss with the following commands:
+- Get the ranking correlations of BossNAS on NATS-Bench Ss with the following commands:
     ```shell
     cd ranking_nats
     python get_model_score_nats.py
     ```
 
-<div style="text-align: center;"><img src=https://user-images.githubusercontent.com/61453811/112087637-48bd8780-8bc9-11eb-8697-ff535cc9634b.png width=20%/>
-</div>
+<p align="center"><img src=https://user-images.githubusercontent.com/61453811/112087637-48bd8780-8bc9-11eb-8697-ff535cc9634b.png width=20%/>
+</p>
 
 ### 4. Search Architecture with BossNAS
 First, go to the searching code directory:
-```
+```shell
 cd searching
 ```
 
 - Search in NATS-Bench Ss Search Space on CIFAR datasets (4 GPUs, 3 hrs)
   
-  CIFAR10:
-  ```shell
-  bash dist_train.sh configs/nats_c10_bs256_accumulate4_gpus4.py 4
-  ```
-  CIFAR100:
-  ```shell
-  bash dist_train.sh configs/nats_c100_bs256_accumulate4_gpus4.py 4
-  ```
+  - CIFAR10:
+    ```shell
+    bash dist_train.sh configs/nats_c10_bs256_accumulate4_gpus4.py 4
+    ```
+  - CIFAR100:
+    ```shell
+    bash dist_train.sh configs/nats_c100_bs256_accumulate4_gpus4.py 4
+    ```
   
 - Search in MBConv Search Space on ImageNet (8 GPUs, 1.5 days)
   ```shell
