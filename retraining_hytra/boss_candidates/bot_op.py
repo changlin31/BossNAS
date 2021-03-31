@@ -2,39 +2,33 @@
 # which is translated from tensorflow code
 # https://gist.github.com/aravindsrinivas/56359b79f0ce4449bcb04ab4b56a57a2
 
-from einops import rearrange
-from torch import nn, einsum
+from torch import nn
 
 
 class Attention(nn.Module):
     def __init__(
             self,
-            *,
             dim,
             heads=4,
             dim_head=128
     ):
         super().__init__()
         self.heads = heads
+        self.dim_head = dim_head
         self.scale = dim_head ** -0.5
         inner_dim = heads * dim_head
 
         self.to_qkv = nn.Conv2d(dim, inner_dim * 3, 1, bias=False)
 
-    def forward(self, fmap):
-        heads, b, c, h, w = self.heads, *fmap.shape
-
-        q, k, v = self.to_qkv(fmap).chunk(3, dim=1)
-        q, k, v = map(lambda t: rearrange(t, 'b (h d) x y -> b h (x y) d', h=heads), (q, k, v))
+    def forward(self, x):
+        b, c, h, w = x.shape
+        q, k, v = self.to_qkv(x).view(b, 3 * self.heads, self.dim_head, h * w).chunk(3, dim=1)
 
         q *= self.scale
+        attn = q.transpose(-2, -1) @ k
+        attn = attn.softmax(dim=-1)
 
-        sim = einsum('b h i d, b h j d -> b h i j', q, k)
-
-        attn = sim.softmax(dim=-1)
-
-        out = einsum('b h i j, b h j d -> b h i d', attn, v)
-        out = rearrange(out, 'b h (x y) d -> b (h d) x y', x=h, y=w)
+        out = (v @ attn).reshape(b, -1, h, w)
         return out
 
 
@@ -51,7 +45,6 @@ class PEG(nn.Module):
 class ResAtt(nn.Module):
     def __init__(
             self,
-            *,
             dim,
             dim_out,
             attn_dim_in,

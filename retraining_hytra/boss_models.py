@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch.nn.functional as F
 from timm.models.layers import create_classifier, DropPath
 from timm.models.registry import register_model
 from timm.models.resnet import drop_blocks
