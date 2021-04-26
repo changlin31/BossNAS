@@ -1,4 +1,7 @@
 # BossNAS
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bossnas-exploring-hybrid-cnn-transformers/neural-architecture-search-on-imagenet)](https://paperswithcode.com/sota/neural-architecture-search-on-imagenet?p=bossnas-exploring-hybrid-cnn-transformers)                      
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bossnas-exploring-hybrid-cnn-transformers/neural-architecture-search-on-nats-bench-size-1)](https://paperswithcode.com/sota/neural-architecture-search-on-nats-bench-size-1?p=bossnas-exploring-hybrid-cnn-transformers)                     
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bossnas-exploring-hybrid-cnn-transformers/neural-architecture-search-on-nats-bench-size-2)](https://paperswithcode.com/sota/neural-architecture-search-on-nats-bench-size-2?p=bossnas-exploring-hybrid-cnn-transformers)
 
 This repository contains PyTorch code and pretrained models of our paper: [***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***](https://arxiv.org/pdf/2103.12424.pdf).
 
