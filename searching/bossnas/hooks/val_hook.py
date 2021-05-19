@@ -378,10 +378,11 @@ class ValNATSPathHook(Hook):
 
     def _run_validate(self, runner):
         runner.model.eval()
-
+        model = runner.model.module if hasattr(runner.model, 'module') else runner.model
+        if len(model.best_paths) == model.start_block + 1:
+            model.best_paths.pop()
         results = self.multi_gpu_test(runner, self.data_loader)
         results = sorted(results.items(), key=lambda x: x[1], reverse=False)
-        model = runner.model.module if hasattr(runner.model, 'module') else runner.model
         if runner.rank == 0:
             time_str = datetime.datetime.strftime(datetime.datetime.now(), '%m-%d-%H-%M-%S')
             output_dir = os.path.join(runner.work_dir, 'path_rank')

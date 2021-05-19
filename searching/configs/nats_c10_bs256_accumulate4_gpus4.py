@@ -47,7 +47,7 @@ model = dict(
                              out_channels=256, num_layers=2, sync_bn=False,
                              with_bias=True, with_last_bn=False, with_avg_pool=False)))
 # dataset settings
-data_source_cfg = dict(type='NATSCifar10', root='../data/cifar/')
+data_source_cfg = dict(type='NATSCifar10', root='../data/cifar/', return_label=False)
 train_dataset_type = 'BYOLDataset'
 test_dataset_type = 'StoragedBYOLDataset'
 img_norm_cfg = dict(mean=[0.4914, 0.4822, 0.4465], std=[0.2023, 0.1994, 0.201])
