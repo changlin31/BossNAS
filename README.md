@@ -3,7 +3,7 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bossnas-exploring-hybrid-cnn-transformers/neural-architecture-search-on-nats-bench-size-1)](https://paperswithcode.com/sota/neural-architecture-search-on-nats-bench-size-1?p=bossnas-exploring-hybrid-cnn-transformers)                     
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bossnas-exploring-hybrid-cnn-transformers/neural-architecture-search-on-nats-bench-size-2)](https://paperswithcode.com/sota/neural-architecture-search-on-nats-bench-size-2?p=bossnas-exploring-hybrid-cnn-transformers)
 
-This repository contains PyTorch code and pretrained models of our paper: [***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***](https://arxiv.org/pdf/2103.12424.pdf).
+This repository contains PyTorch code and pretrained models of our paper: [***BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search***](https://arxiv.org/pdf/2103.12424.pdf) (ICCV 2021).
 
 <p align="center">
 <img src=https://user-images.githubusercontent.com/61453811/112087629-45c29700-8bc9-11eb-8536-3485660bc7c2.png width=95%/></p>
@@ -191,7 +191,7 @@ cd searching
 ## Citation
 If you use our code for your paper, please cite:
 ```bibtex
-@article{li2021bossnas,
+@inproceedings{li2021bossnas,
   author = {Li, Changlin and
             Tang, Tao and
             Wang, Guangrun and
@@ -200,7 +200,7 @@ If you use our code for your paper, please cite:
             Liang, Xiaodan and
             Chang, Xiaojun},
   title = {BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search},
-  journal = {arXiv preprint arXiv:2103.12424},
+  booktitle = {ICCV},
   year = 2021,
 }
 ```
