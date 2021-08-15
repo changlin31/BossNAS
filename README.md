@@ -199,7 +199,7 @@ If you use our code for your paper, please cite:
             Wang, Bing and
             Liang, Xiaodan and
             Chang, Xiaojun},
-  title = {BossNAS: Exploring Hybrid CNN-transformers with Block-wisely Self-supervised Neural Architecture Search},
+  title = {{B}oss{NAS}: Exploring Hybrid {CNN}-transformers with Block-wisely Self-supervised Neural Architecture Search},
   booktitle = {ICCV},
   year = 2021,
 }
