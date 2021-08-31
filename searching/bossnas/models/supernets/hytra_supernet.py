@@ -3,7 +3,7 @@ import random
 import numpy as np
 import torch.nn as nn
 
-from bossnas.models.utils.hytra_paths import all_path
+from bossnas.models.utils.hytra_paths import all_path, restricted_path
 from bossnas.models.operations.operation_dict import OPS
 from bossnas.models.operations.operation_dict import reset
 from openselfsup.models.registry import BACKBONES
@@ -253,7 +253,8 @@ class SupernetHyTra(nn.Module):
         return forward_op
 
     def get_all_path(self, start_block):
-        return all_path[self.stage_depths[start_block]]
+        return restricted_path[self.stage_depths[start_block]]
+        # return all_path[self.stage_depths[start_block]]
 
     def reset_params(self):
         self.apply(reset)
