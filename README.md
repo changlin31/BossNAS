@@ -138,6 +138,11 @@ Illustration of the fabric-like Hybrid CNN-transformer Search Space with flexibl
     ```shell
     python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --model bossnet_T1 --input-size 224 --batch-size 128 --data-path ../data/imagenet --num_workers 8
     ```
+    
+- Calculate the MAdds for BossNet-T models with the following command:
+  ```shell
+  python retraining_hytra/boss_madds.py
+  ``` 
 
 <p align="center"><img src=https://user-images.githubusercontent.com/61453811/112087617-40fde300-8bc9-11eb-93ed-d043979d3e65.png width=60%/></p>
 <p align="center">Architecture of our BossNet-T0</p>
