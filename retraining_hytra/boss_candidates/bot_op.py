@@ -24,11 +24,10 @@ class Attention(nn.Module):
         b, c, h, w = x.shape
         q, k, v = self.to_qkv(x).view(b, 3 * self.heads, self.dim_head, h * w).chunk(3, dim=1)
 
-        q *= self.scale
-        attn = q.transpose(-2, -1) @ k
+        attn = q.transpose(-2, -1) @ k * self.scale
         attn = attn.softmax(dim=-1)
 
-        out = (v @ attn).reshape(b, -1, h, w)
+        out = (v @ attn.transpose(-2, -1)).reshape(b, -1, h, w)
         return out
 
 

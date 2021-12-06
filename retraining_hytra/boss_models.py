@@ -179,7 +179,7 @@ def bossnet_T0(pretrained=False, **kwargs):
     stem_width=32, stem_type='deep'
     """
     model = BossNet(encoding=[[1], [1], [1, 1, 1, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0]], avg_down=True, act_layer=nn.SiLU,
-                    attn_layer='se')
+                    attn_layer='se', **kwargs)
     model.default_cfg = _cfg()
     return model
 
@@ -190,7 +190,7 @@ def bossnet_T0_nose(pretrained=False, **kwargs):
     stem_width=32, stem_type='deep'
     """
     model = BossNet(encoding=[[1], [1], [1, 1, 1, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0]], avg_down=True, act_layer=nn.ReLU,
-                    attn_layer=None)
+                    attn_layer=None, **kwargs)
     model.default_cfg = _cfg()
     return model
 
@@ -201,6 +201,6 @@ def bossnet_T1(pretrained=False, **kwargs):
     stem_width=32, stem_type='deep'
     """
     model = BossNet(encoding=[[1], [1], [1, 1, 1, 0, 1], [0, 0, 0, 1, 0, 0, 0, 0, 0]], avg_down=True, act_layer=nn.SiLU,
-                    attn_layer='se', last_stride=1)
+                    attn_layer='se', last_stride=1, **kwargs)
     model.default_cfg = _cfg()
     return model

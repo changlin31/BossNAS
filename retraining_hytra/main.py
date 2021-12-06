@@ -19,10 +19,11 @@ from timm.loss import LabelSmoothingCrossEntropy, SoftTargetCrossEntropy
 from timm.models import create_model
 from timm.optim import create_optimizer
 from timm.scheduler import create_scheduler
-from timm.utils import NativeScaler, get_state_dict, ModelEma
+from timm.utils import NativeScaler, get_state_dict
 
 import utils
-import boss_models
+from utils import ModelEma
+import boss_models  # register models
 from datasets import build_dataset
 from engine import train_one_epoch, evaluate
 from samplers import RASampler
@@ -239,7 +240,7 @@ def main(args):
             model,
             decay=args.model_ema_decay,
             device='cpu' if args.model_ema_force_cpu else '',
-            resume='')
+            resume=args.resume)
 
     model_without_ddp = model
     if args.distributed:
@@ -283,6 +284,8 @@ def main(args):
     if args.eval:
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        test_stats = evaluate(data_loader_val, model_ema.ema, device)
+        print(f"Accuracy of the ema network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
         return
 
     print("Start training")
@@ -314,10 +317,15 @@ def main(args):
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
         max_accuracy = max(max_accuracy, test_stats["acc1"])
+
+        test_ema_stats = evaluate(data_loader_val, model_ema.ema, device)
+        print(f"Accuracy of the EMA network on the {len(dataset_val)} test images: {test_ema_stats['acc1']:.1f}%")
+        max_accuracy = max(max_accuracy, test_ema_stats["acc1"])
         print(f'Max accuracy: {max_accuracy:.2f}%')
 
         log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
                      **{f'test_{k}': v for k, v in test_stats.items()},
+                     **{f'test_ema_{k}': v for k, v in test_ema_stats.items()},
                      'epoch': epoch,
                      'n_parameters': n_parameters}
 
